@@ -1,5 +1,5 @@
 open Base
-open ExtString
+module String = BatString
 
 type t = Pack.t
 
@@ -17,4 +17,3 @@ let serialize_string obj =
   +> MsgpackCore.serialize
   +> List.map Pack.char_of_ascii8
   +> String.implode
-

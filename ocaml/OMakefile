@@ -22,7 +22,7 @@ if $(not $(OCAMLFIND_EXISTS))
 
 OCAMLPACKS[] =
 	oUnit
-	extlib
+	batteries
 	num
 
 OCAML_WARN_FLAGS=$`(if $(equal $<,msgpackCore.ml),-annot,-w A -warn-error A ) #`
@@ -64,7 +64,7 @@ OCAMLOPT += -for-pack $(capitalize $(PROGRAM))
 
 .DEFAULT: all
 
-all : $(OCamlPackage $(PROGRAM), $(FILES))
+all : $(OCamlLibrary $(PROGRAM), $(FILES))
 
 check : $(OCamlProgram $(TEST_PROGRAM), $(TEST_FILES) $(FILES))
 	./$(TEST_PROGRAM)
@@ -74,7 +74,8 @@ doc:
 	ocamldoc -d doc -html msgpack.mli
 
 install: all
-	ocamlfind install msgpack META *.cmo *.cmx *.cmi
+	-ocamlfind remove msgpack
+	ocamlfind install msgpack META msgpack.{a,cm*}
 
 clean:
 	rm -rf *.cm[iox] *.o *~ *.omc .omakedb .omakedb.lock *.cmxa *.a *.opt *.run *.annot runner msgpackCore.*
