@@ -64,7 +64,7 @@ OCAMLOPT += -for-pack $(capitalize $(PROGRAM))
 
 .DEFAULT: all
 
-all : $(OCamlLibrary $(PROGRAM), $(FILES))
+all : $(OCamlPackage $(PROGRAM), $(FILES))
 
 check : $(OCamlProgram $(TEST_PROGRAM), $(TEST_FILES) $(FILES))
 	./$(TEST_PROGRAM)
@@ -75,7 +75,7 @@ doc:
 
 install: all
 	-ocamlfind remove msgpack
-	ocamlfind install msgpack META msgpack.{a,cm*}
+	ocamlfind install msgpack META msgpack.{cm*,o}
 
 clean:
 	rm -rf *.cm[iox] *.o *~ *.omc .omakedb .omakedb.lock *.cmxa *.a *.opt *.run *.annot runner msgpackCore.*
